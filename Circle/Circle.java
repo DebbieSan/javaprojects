@@ -229,11 +229,7 @@ public class Circle {
                     double pointY = scanner.nextDouble();
 
                     boolean isInside = yourCircle.isInside(pointX, pointY);
-                    if (isInside) {
-                        System.out.println("The point (" + pointX + ", " + pointY + ") is inside the circle!");
-                    } else {
-                        System.out.println("The point (" + pointX + ", " + pointY + ") is outside the circle.");
-                    }
+
                     System.out
                             .println(
                                     "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
