@@ -1,6 +1,8 @@
 
-/** This program allows users to create a Circle and obtain information on the circle. The information obtain comes from methods that uses user input to 
- * calculate the circuference, the area, and to check if a point is inside the circle.
+/**
+ * This program enables users to create a Circle and access detailed information about it. 
+ * Using user-provided input, the program's methods calculate the circle's circumference, 
+ * area, and determine whether a given point lies inside the circle.
  */
 
 import java.util.Scanner;
@@ -26,14 +28,13 @@ public class Circle {
         this.x = 2.0;
         this.y = 2.0;
         this.radius = 1;
-        setRadius(radius);
 
     }
 
     public Circle(double cx, double cy, double r) {
         this.x = cx;
         this.y = cy;
-        this.radius = r;
+        setRadius(r);
 
     }
 
@@ -43,7 +44,7 @@ public class Circle {
      * @return the circumference of the circle
      */
 
-    public double circunference() {
+    public double circumference() {
         return 2 * Math.PI * radius;
 
     }
@@ -59,15 +60,14 @@ public class Circle {
     }
 
     public void setRadius(double r) {
-        this.radius = (r > maxradius) ? maxradius : r;
-
+        this.radius = (Math.abs(r) > maxradius) ? maxradius : Math.abs(r);
     }
 
     public void printAttributes() {
-        System.out.println("Here is the circle information as requested:");
+        System.out.println("Here is the circle information:");
         System.out.printf("The coordinates are: (%.2f, %.2f) %n", this.x, this.y);
         System.out.printf("The radius is: %.2f%n", this.radius);
-        System.out.printf("The circunference is: %.2f%n", circunference());
+        System.out.printf("The circumference is: %.2f%n", circumference());
         System.out.printf("The area is: %.2f%n", area());
 
     }
@@ -103,7 +103,14 @@ public class Circle {
         double distance = Math.sqrt(Math.pow(x - this.x, 2) + Math.pow(y - this.y, 2));
         System.out.println("Distance from point to centre: " + distance);
         System.out.println("Circle radius: " + this.radius);
-        return distance <= this.radius;
+
+        if (distance <= this.radius) {
+            System.out.println("The point (" + x + ", " + y + ") is inside the circle.");
+            return true;
+        } else {
+            System.out.println("The point (" + x + ", " + y + ") is outside the circle.");
+            return false;
+        }
     }
 
     /**
@@ -113,9 +120,10 @@ public class Circle {
      * @param y the amount to move the circle vertically
      */
 
-    public void move(int x, int y) {
+    public void move(double x, double y) {
         this.x += x;
         this.y += y;
+        System.out.println("Your new center is: " + this.x + ", " + this.y);
 
     }
 
@@ -140,13 +148,14 @@ public class Circle {
         System.out.println("This is my circle.");
         System.out
                 .println("------------------------------------------------------------------------------------------");
-        Circle circle = new Circle();
-        circle.setRadius(25);
-        circle.isInside(50, 30);
-        circle.move(5, 7);
+        Circle circle = new Circle(1.00, 2.00, 0);
         circle.printAttributes();
-        circle.isInside(50, 30);
-        circle.move(5, 7);
+
+        System.out.println("Moving my circle");
+        circle.move(3, 1);
+
+        System.out.println("Checking to see if a point is inside my circle");
+        circle.isInside(50.00, 100.00);
 
         System.out.println();
 
@@ -166,40 +175,74 @@ public class Circle {
 
         while (makeCircles) {
 
-            System.out.println("Would you like to create a circle like I did? Type Y for Yes and N for No");
+            System.out.println("Would you like to create a circle ? Type Y for Yes and N for No");
 
             String answer = scanner.nextLine();
 
             if (answer.equalsIgnoreCase("Y")) {
                 System.out.println(
-                        "Great! Let's create your circle and learn about it! Please use doubles when entering your values.");
+                        "Great! Let's create your circle, learn about it and play with it! Please use numerical values only.");
                 try {
+                    // Get initial circle details
+                    System.out.println("Enter the x-coordinate (horizontal position) of your circle's center:");
+                    double userX = scanner.nextDouble();
 
-                    System.out.println("Enter your x- coordinates ( or the horizontal coordinates of your circle)?");
+                    System.out.println("Enter the y-coordinate (vertical position) of your circle's center:");
+                    double userY = scanner.nextDouble();
 
-                    double userx = scanner.nextDouble();
-
-                    System.out.println("Enter your y-coordinates ( or the vertical coordinates of your circle): ");
-
-                    double usery = scanner.nextDouble();
-
-                    System.out.println("Finally, enter your circle's radius: ");
-
+                    System.out.println("Enter your circle's radius:");
                     double userRadius = scanner.nextDouble();
 
-                    // Clear the scanner buffer
+                    // Create a Circle object
+                    Circle yourCircle = new Circle(userX, userY, userRadius);
 
-                    scanner.nextLine();
-
-                    Circle yourCircle = new Circle(userx, usery, userRadius);
-
+                    // Print circle attributes
+                    System.out.println("Here are the attributes of your circle:");
                     yourCircle.printAttributes();
 
-                    yourCircle.setRadius(userRadius);
+                    // Move the circle
+                    System.out.println("Great! Now let's move your circle.");
+                    System.out.println("Enter the new x-coordinate to move the circle horizontally:");
+                    double newX = scanner.nextDouble();
 
-                    yourCircle.move(0, 0);
+                    System.out.println("Enter the new y-coordinate to move the circle vertically:");
+                    double newY = scanner.nextDouble();
 
-                    yourCircle.isInside(userx, usery);
+                    yourCircle.move(newX, newY);
+                    System.out
+                            .println(
+                                    "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+                    System.out.println("Your circle has been moved.");
+                    System.out
+                            .println(
+                                    "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+                    yourCircle.printAttributes();
+
+                    System.out.println();
+
+                    // Check if a point is inside the circle
+                    System.out.println("Let's check if a specific point is inside your circle.");
+                    System.out.println("Enter the x-coordinate of the point to check:");
+                    double pointX = scanner.nextDouble();
+
+                    System.out.println("Enter the y-coordinate of the point to check:");
+                    double pointY = scanner.nextDouble();
+
+                    boolean isInside = yourCircle.isInside(pointX, pointY);
+                    if (isInside) {
+                        System.out.println("The point (" + pointX + ", " + pointY + ") is inside the circle!");
+                    } else {
+                        System.out.println("The point (" + pointX + ", " + pointY + ") is outside the circle.");
+                    }
+                    System.out
+                            .println(
+                                    "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                    System.out.println("So much fun!");
+                    System.out.println(
+                            "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+
+                    // Clear the scanner buffer
+                    scanner.nextLine();
 
                 } catch (Exception e) {
                     // Handles invalid input
@@ -219,6 +262,6 @@ public class Circle {
 
         }
         scanner.close(); // closes the scanner to protect resources
-
     }
+
 }
