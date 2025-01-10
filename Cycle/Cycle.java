@@ -1,10 +1,14 @@
 public class Cycle {
 
-    int numberOfWheels;
+    public int wheels() {
+        return 4;
+    }
 
     public void ride() {
 
         System.out.println("I am riding");
+        wheels();
+        System.out.println("It has " + wheels() + " wheels.");
 
     }
 
