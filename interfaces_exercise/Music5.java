@@ -1,6 +1,3 @@
-// interfaces/music5/Music5.java
-// Interfaces.
-
 interface Instrument {
     // Compile-time constant:
     int VALUE = 5; // static & final
@@ -15,7 +12,7 @@ interface Playable {
 
 class Wind implements Instrument, Playable {
     public void play(Note n) {
-        System.out.print(this + ".play() " + n);
+        System.out.println(this + ".play() " + n);
     }
 
     public String toString() {
@@ -23,28 +20,13 @@ class Wind implements Instrument, Playable {
     }
 
     public void adjust() {
-        System.out.print(this + ".adjust()");
+        System.out.println(this + ".adjust()");
     }
-}
-
-abstract class Instruments {
-    public void play(Note n) {
-        System.out.print(this + ".play() " + n);
-    }
-
-    public String toString() {
-        return "instrument";
-    }
-
-    public void adjust() {
-        System.out.print(this + ".adjust()");
-    }
-
 }
 
 class Percussion implements Instrument, Playable {
     public void play(Note n) {
-        System.out.print(this + ".play() " + n);
+        System.out.println(this + ".play() " + n);
     }
 
     public String toString() {
@@ -52,13 +34,13 @@ class Percussion implements Instrument, Playable {
     }
 
     public void adjust() {
-        System.out.print(this + ".adjust()");
+        System.out.println(this + ".adjust()");
     }
 }
 
 class Stringed implements Instrument, Playable {
     public void play(Note n) {
-        System.out.print(this + ".play() " + n);
+        System.out.println(this + ".play() " + n);
     }
 
     public String toString() {
@@ -66,7 +48,7 @@ class Stringed implements Instrument, Playable {
     }
 
     public void adjust() {
-        System.out.print(this + ".adjust()");
+        System.out.println(this + ".adjust()");
     }
 }
 
